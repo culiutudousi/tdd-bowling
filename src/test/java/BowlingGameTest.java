@@ -17,9 +17,16 @@ public class BowlingGameTest {
     }
 
     @Test
-    void should_return_0_when_all_throw_are_0() {
+    void should_return_0_given_all_throw_are_0() {
         int[] throwScores = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int score = bowlingGame.calculateScore(throwScores);
         assertEquals(0, score);
+    }
+
+    @Test
+    void should_return_300_given_all_throw_are_strike() {
+        int[] throwScores = new int[]{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+        int score = bowlingGame.calculateScore(throwScores);
+        assertEquals(300, score);
     }
 }
