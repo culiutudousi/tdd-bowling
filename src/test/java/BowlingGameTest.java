@@ -29,4 +29,10 @@ public class BowlingGameTest {
         int score = bowlingGame.calculateScore(throwScores);
         assertEquals(300, score);
     }
+    @Test
+    void should_return_sum_given_no_strike_nor_spare() {
+        int[] throwScores = new int[]{3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+        int score = bowlingGame.calculateScore(throwScores);
+        assertEquals(60, score);
+    }
 }
