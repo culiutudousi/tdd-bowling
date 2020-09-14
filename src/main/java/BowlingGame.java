@@ -17,12 +17,28 @@ public class BowlingGame {
     }
 
     private Integer calculateScoreOfFrames(List<List<Integer>> frames) {
-        return frames.stream()
-                .map(frame -> calculateScoreOfFrame(frame))
-                .reduce(0, Integer::sum);
+        Integer score = 0;
+        if(frames.size() < 11) {
+            for (int i = 0; i < 11 - frames.size(); i ++) {
+                frames.add(Arrays.asList(0));
+            }
+        }
+        for (int i = 0; i < 10; i ++) {
+            score += calculateScoreOfFrame(frames.get(i), frames.get(i + 1));
+        }
+        return score;
     }
 
-    private Integer calculateScoreOfFrame(List<Integer> frame) {
+    private Integer calculateScoreOfFrame(List<Integer> frame, List<Integer> nextFrame) {
+        Integer score = calculatePinOfFrame(frame);
+        if (score == 10) {
+            System.out.println(score + calculatePinOfFrame(nextFrame));
+            return score + calculatePinOfFrame(nextFrame);
+        }
+        return score;
+    }
+
+    private Integer calculatePinOfFrame(List<Integer> frame) {
         return frame.stream().reduce(0, Integer::sum);
     }
 
