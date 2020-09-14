@@ -49,4 +49,11 @@ public class BowlingGameTest {
         int score = bowlingGame.calculateScore(throwScores);
         assertEquals(222, score);
     }
+
+    @Test
+    void should_return_strike_with_next_two_pins_given_strikes_with_strike_last() {
+        int[] throwScores = new int[]{10, 10, 10, 4, 6, 5, 5, 10, 7, 3, 8, 2, 9, 1, 10, 10, 10};
+        int score = bowlingGame.calculateScore(throwScores);
+        assertEquals(250, score);
+    }
 }
