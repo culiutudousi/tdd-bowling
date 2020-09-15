@@ -14,16 +14,16 @@ public class BowlingGame {
     private Integer calculateScoreOfFrames(List<List<Integer>> frames) {
         Integer score = 0;
         lengthenFramesTo(frames, 12);
-        for (int i = 0; i < 10; i ++) {
+        for (int i = 0; i < 10; i++) {
             score += calculateScoreOfFrame(frames.get(i), frames.get(i + 1), frames.get(i + 2));
         }
         return score;
     }
 
     private void lengthenFramesTo(List<List<Integer>> frames, Integer number) {
-        if(frames.size() < number) {
+        if (frames.size() < number) {
             int numberOfEmptyToAdd = number - frames.size();
-            for (int i = 0; i < numberOfEmptyToAdd; i ++) {
+            for (int i = 0; i < numberOfEmptyToAdd; i++) {
                 frames.add(Arrays.asList(0));
             }
         }
@@ -55,9 +55,9 @@ public class BowlingGame {
     private List<List<Integer>> splitScoresIntoFrames(List<Integer> scores) {
         List<List<Integer>> frames = new ArrayList<>();
         List<Integer> frame = new ArrayList<>();
-        for(Integer score: scores) {
+        for (Integer score : scores) {
             frame.add(score);
-            if(doesFrameFinish(frame)) {
+            if (doesFrameFinish(frame)) {
                 frames.add(frame.stream().collect(Collectors.toList()));
                 frame.clear();
             }
@@ -66,7 +66,7 @@ public class BowlingGame {
     }
 
     private Boolean doesFrameFinish(List<Integer> frame) {
-        if(isStrike(frame) || frame.size() == 2) {
+        if (isStrike(frame) || frame.size() == 2) {
             return true;
         }
         return false;
