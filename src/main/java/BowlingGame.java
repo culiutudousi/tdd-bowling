@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class BowlingGame {
 
@@ -20,6 +21,12 @@ public class BowlingGame {
         return score;
     }
 
+    private Integer getSumOfFirstPins(List<Integer> frame, List<Integer> nextFrame, Integer pinsNumber) {
+        return Stream.concat(frame.stream(), nextFrame.stream())
+                .limit(pinsNumber)
+                .reduce(0, Integer::sum);
+    }
+
     private void lengthenFramesTo(List<List<Integer>> frames, Integer number) {
         if (frames.size() < number) {
             int numberOfEmptyToAdd = number - frames.size();
@@ -32,10 +39,10 @@ public class BowlingGame {
     private Integer calculateScoreOfFrame(List<Integer> frame, List<Integer> nextFrame, List<Integer> frameAfterNext) {
         Integer score = calculatePinOfFrame(frame);
         if (isStrike(frame)) {
-            return score + calculatePinOfFrame(nextFrame) + calculatePinOfFrame(frameAfterNext);
+            return score + getSumOfFirstPins(nextFrame, frameAfterNext, 2);
         }
         if (isSpare(frame)) {
-            return score + calculatePinOfFrame(nextFrame);
+            return score + getSumOfFirstPins(nextFrame, frameAfterNext, 1);
         }
         return score;
     }
